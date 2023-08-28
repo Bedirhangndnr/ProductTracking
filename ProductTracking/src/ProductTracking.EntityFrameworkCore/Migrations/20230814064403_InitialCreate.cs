@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProductTracking.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -368,6 +368,45 @@ namespace ProductTracking.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AbpUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppParticleOperations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Operation_Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Operation_Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Operation_Start_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Operation_End_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Operation_Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Station = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    O_Track_Code = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppParticleOperations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Track_Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Work_Order = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    pr_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Start_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    End_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Due_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PictureLink = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppProducts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1049,6 +1088,12 @@ namespace ProductTracking.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "AppParticleOperations");
+
+            migrationBuilder.DropTable(
+                name: "AppProducts");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");

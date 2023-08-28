@@ -48,8 +48,8 @@ public class ProductTrackingDbContext :
     public DbSet<IdentitySecurityLog> SecurityLogs { get; set; }
     public DbSet<IdentityLinkUser> LinkUsers { get; set; }
     public DbSet<IdentityUserDelegation> UserDelegations { get; set; }
-    public DbSet<Product> Products { get; set; }
     public DbSet<ParticleOperation> ParticleOperations { get; set; }
+    public DbSet<Product> Products { get; set; }
 
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
@@ -80,11 +80,21 @@ public class ProductTrackingDbContext :
 
         /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(ProductTrackingConsts.DbTablePrefix + "YourEntities", ProductTrackingConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.Entity<Product>(b =>
+        {
+            b.ToTable(ProductTrackingConsts.DbTablePrefix + "Products", ProductTrackingConsts.DbSchema);
+            // Özel yapılandırmalarınızı burada ekleyebilirsiniz
+
+            // Örnek olarak index ekleme:
+        });
+        builder.Entity<ParticleOperation>(b =>
+        {
+            b.ToTable(ProductTrackingConsts.DbTablePrefix + "ParticleOperations", ProductTrackingConsts.DbSchema);
+            // Özel yapılandırmalarınızı burada ekleyebilirsiniz
+
+            // Örnek olarak index ekleme:
+        });
+
+
     }
 }

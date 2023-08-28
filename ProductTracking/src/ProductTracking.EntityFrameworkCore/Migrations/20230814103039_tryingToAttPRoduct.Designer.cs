@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace ProductTracking.Migrations
 {
     [DbContext(typeof(ProductTrackingDbContext))]
-    [Migration("20230810102950_Initial")]
-    partial class Initial
+    [Migration("20230814103039_tryingToAttPRoduct")]
+    partial class tryingToAttPRoduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,10 +22,106 @@ namespace ProductTracking.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.SqlServer)
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ProductTracking.ParticleOperations.ParticleOperation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("OperationCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Operation_Code");
+
+                    b.Property<string>("OperationDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Operation_Description");
+
+                    b.Property<DateTime>("OperationEndDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Operation_End_Date");
+
+                    b.Property<DateTime>("OperationStartDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Operation_Start_Date");
+
+                    b.Property<string>("OperationStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Operation_Status");
+
+                    b.Property<string>("OperationTrackCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("O_Track_Code");
+
+                    b.Property<string>("Station")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Station");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppParticleOperations", (string)null);
+                });
+
+            modelBuilder.Entity("ProductTracking.Products.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Due_Date");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("End_Date");
+
+                    b.Property<string>("PictureLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("PictureLink");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("pr_Name");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Start_Date");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Status");
+
+                    b.Property<string>("TrackCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Track_Code");
+
+                    b.Property<string>("WorkOrder")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Work_Order");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppProducts", (string)null);
+                });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
                 {
